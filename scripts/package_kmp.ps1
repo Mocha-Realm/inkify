@@ -11,8 +11,8 @@ New-Item -ItemType Directory -Force -Path "$OutputDir/interop"
 
 # 1. Build for Windows (Local)
 Write-Host "Building for Windows..."
-bazelisk build //ink:libinkify
-Copy-Item "bazel-bin/ink/libinkify.dll" "$NativeLibsDir/windows/"
+bazelisk build //ink:inkify
+Copy-Item "bazel-bin/ink/inkify.dll" "$NativeLibsDir/windows/"
 Copy-Item "ink/inkify_c_api.h" "$OutputDir/interop/"
 Copy-Item "inkify.def" "$OutputDir/interop/"
 
@@ -20,7 +20,7 @@ Copy-Item "inkify.def" "$OutputDir/interop/"
 # Note: This will fail if ANDROID_NDK_HOME is not set.
 Write-Host "Building for Android (arm64)..."
 try {
-    bazelisk build //ink:libinkify --platforms=//:android-arm64
+    bazelisk build //ink:inkify --platforms=//:android-arm64
     Copy-Item "bazel-bin/ink/libinkify.so" "$NativeLibsDir/android/arm64-v8a/"
 } catch {
     Write-Warning "Android arm64 build failed. Ensure NDK is configured."
@@ -28,7 +28,7 @@ try {
 
 Write-Host "Building for Android (x86_64)..."
 try {
-    bazelisk build //ink:libinkify --platforms=//:android-x86_64
+    bazelisk build //ink:inkify --platforms=//:android-x86_64
     Copy-Item "bazel-bin/ink/libinkify.so" "$NativeLibsDir/android/x86_64/"
 } catch {
     Write-Warning "Android x86_64 build failed. Ensure NDK is configured."
