@@ -1,6 +1,3 @@
-# package_kmp.ps1
-# Script to build and organize Inkify binaries for KMP integration.
-
 $OutputDir = "release/kmp"
 $NativeLibsDir = "$OutputDir/native-libs"
 
