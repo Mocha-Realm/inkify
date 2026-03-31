@@ -1,7 +1,14 @@
 # Set up to use C++20.
-build --cxxopt=/std:c++20
-build --cxxopt=/Zc:__cplusplus
-build --conlyopt=/std:c++20
+# Windows (MSVC)
+build:windows --cxxopt=/std:c++20
+build:windows --cxxopt=/Zc:__cplusplus
+build:windows --conlyopt=/std:c++20
+
+# Android/Linux
+build:android --cxxopt=-std=c++20
+build:android --conlyopt=-std=c++20
+build:linux --cxxopt=-std=c++20
+build:linux --conlyopt=-std=c++20
 
 # Enable Bzlmod for all Bazel commands.
 common --enable_bzlmod
