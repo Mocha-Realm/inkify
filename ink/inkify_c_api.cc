@@ -79,10 +79,12 @@ InkifyQueryResult inkify_chunk_manager_query_viewport(InkifyChunkManagerPtr chun
 
     const char** uuid_array = new const char*[result.count];
     for (uint32_t i = 0; i < result.count; ++i) {
-        // Warning: This assumes the UUID string in StrokeManager stays alive.
-        // For KMP cinterop, it's better to copy or ensure lifetime.
-        // Here we'll copy to be safe.
+        // Use a cross-platform way to duplicate strings.
+#ifdef _WIN32
         uuid_array[i] = _strdup(strokes[i]->uuid.c_str());
+#else
+        uuid_array[i] = strdup(strokes[i]->uuid.c_str());
+#endif
     }
     result.uuids = uuid_array;
     return result;

@@ -1,18 +1,15 @@
-# Set up to use C++20.
-# Windows (MSVC)
-build:windows --cxxopt=/std:c++20
-build:windows --cxxopt=/Zc:__cplusplus
-build:windows --conlyopt=/std:c++20
-
-# Android/Linux
-build:android --cxxopt=-std=c++20
-build:android --conlyopt=-std=c++20
-build:linux --cxxopt=-std=c++20
-build:linux --conlyopt=-std=c++20
-
 # Enable Bzlmod for all Bazel commands.
 common --enable_bzlmod
 common --define=protobuf_allow_msvc=true
+
+# Windows MSVC specific flags
+build --cxxopt=/Zc:__cplusplus
+build:windows --cxxopt=/std:c++20
+build:windows --conlyopt=/std:c++20
+
+# Linux / Android / macOS (Clang/GCC)
+build --cxxopt=-std=c++20
+build --conlyopt=-std=c++20
 
 # To create this file, please run:
 #  bazel run @com_google_fuzztest//bazel:setup_configs > fuzztest.bazelrc
