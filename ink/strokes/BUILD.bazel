@@ -131,6 +131,30 @@ cc_library(
 )
 
 cc_test(
+    name = "stroke_manager_test",
+    srcs = ["stroke_manager_test.cc"],
+    deps = [
+        ":stroke_manager",
+        ":stroke",
+        "//ink/brush",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
+    name = "chunk_manager_test",
+    srcs = ["chunk_manager_test.cc"],
+    deps = [
+        ":chunk_manager",
+        ":stroke",
+        ":stroke_manager",
+        "//ink/brush",
+        "//ink/geometry:rect",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_test(
     name = "in_progress_stroke_test",
     srcs = ["in_progress_stroke_test.cc"],
     deps = [
@@ -158,5 +182,47 @@ cc_test(
         "@com_google_absl//absl/strings:string_view",
         "@com_google_absl//absl/types:span",
         "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_library(
+    name = "crdt_stroke",
+    hdrs = ["crdt_stroke.h"],
+    deps = [
+        ":stroke",
+    ],
+)
+
+cc_library(
+    name = "chunk",
+    hdrs = ["chunk.h"],
+    deps = [
+        "@com_google_absl//absl/hash",
+    ],
+)
+
+cc_library(
+    name = "chunk_manager",
+    srcs = ["chunk_manager.cc"],
+    hdrs = ["chunk_manager.h"],
+    deps = [
+        ":chunk",
+        ":crdt_stroke",
+        ":stroke_manager",
+        "//ink/geometry:affine_transform",
+        "//ink/geometry:point",
+        "//ink/geometry:rect",
+        "//ink/geometry/internal:static_rtree",
+        "@com_google_absl//absl/container:flat_hash_map",
+    ],
+)
+
+cc_library(
+    name = "stroke_manager",
+    srcs = ["stroke_manager.cc"],
+    hdrs = ["stroke_manager.h"],
+    deps = [
+        ":crdt_stroke",
+        ":stroke",
     ],
 )

@@ -83,6 +83,20 @@ proto_library(
     deps = [":stroke_input_batch_proto"],
 )
 
+proto_library(
+    name = "collaboration_proto",
+    srcs = ["collaboration.proto"],
+    deps = [
+        ":brush_proto",
+        ":stroke_input_batch_proto",
+    ],
+)
+
+cc_proto_library(
+    name = "collaboration_cc_proto",
+    deps = [":collaboration_proto"],
+)
+
 cc_proto_library(
     name = "incremental_stroke_inputs_cc_proto",
     visibility = ["//ink:__subpackages__"],

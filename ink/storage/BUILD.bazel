@@ -284,6 +284,33 @@ cc_test(
 )
 
 cc_library(
+    name = "collaboration",
+    srcs = ["collaboration.cc"],
+    hdrs = ["collaboration.h"],
+    deps = [
+        ":brush",
+        ":stroke_input_batch",
+        "//ink/storage/proto:collaboration_cc_proto",
+        "//ink/strokes:crdt_stroke",
+        "@com_google_absl//absl/status:statusor",
+    ],
+)
+
+cc_test(
+    name = "collaboration_test",
+    srcs = ["collaboration_test.cc"],
+    deps = [
+        ":collaboration",
+        "//ink/brush",
+        "//ink/brush:brush_family",
+        "//ink/color",
+        "//ink/strokes/input:stroke_input_batch",
+        "@com_google_absl//absl/status:status_matchers",
+        "@com_google_googletest//:gtest_main",
+    ],
+)
+
+cc_library(
     name = "numeric_run",
     srcs = ["numeric_run.cc"],
     hdrs = ["numeric_run.h"],

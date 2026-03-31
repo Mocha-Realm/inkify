@@ -1,0 +1,6 @@
+package = com.google.inkify.interop
+headers = inkify_c_api.h
+headerFilter = inkify_c_api.h
+
+compilerOpts = -I.
+linkerOpts = -linkify
