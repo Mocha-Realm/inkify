@@ -32,7 +32,7 @@ cc_library(
 
 # This target builds the shared library (.so, .dylib, or .dll)
 cc_binary(
-    name = "libinkify",
+    name = "inkify",
     linkshared = True,
     deps = [":inkify_c_api"],
 )
